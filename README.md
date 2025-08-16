@@ -1,6 +1,6 @@
 # sdms
 ## Complete file structure for your project:
-/sdms/
+/sdms/  
 ├── assets/
 │   ├── css/
 │   ├── js/
