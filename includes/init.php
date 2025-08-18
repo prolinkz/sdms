@@ -20,7 +20,8 @@ define('BASE_URL', 'http://localhost/sdms/');
 // Include core files
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/Auth.php';
-require_once __DIR__ . '/helpers.php'; // Ensure helpers are included
+require_once __DIR__ . '/helpers.php'; // Ensure helpers are included For isActiveLink, etc
+require_once __DIR__ . '/UserManager.php'; // <--- NEW: Include UserManager
 
 // Instantiate common classes and establish database connection
 $database = new Database();
@@ -34,6 +35,9 @@ try {
 
 // Instantiate Auth class, injecting the database connection
 $auth = new Auth($db_conn); 
+
+// --- THIS LINE IS CRUCIAL ---
+$user_manager = new UserManager($db_conn); // Ensure this line exists and is uncommented
 
 // Session activity update for logged-in users to prevent premature timeout
 if ($auth->isLoggedIn()) {

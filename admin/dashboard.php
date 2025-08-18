@@ -1,4 +1,5 @@
 <?php
+// Corrected path: Go up one level (from 'admin/') to 'sdms/', then into 'includes/'
 require_once __DIR__ . '/../includes/init.php';
 require_once __DIR__ . '/../includes/helpers.php'; // Ensure helpers are included
 
@@ -32,6 +33,16 @@ $page_heading = "Dashboard"; // Used in the top-navbar
             <p class="value blue">...</p>
         </div>
         <!-- Add more cards as needed -->
+    </div>
+
+    <div style="margin-top: 40px; text-align: center;">
+        <h3>Quick Actions</h3>
+        <p>
+            <a href="<?= BASE_URL ?>admin/users/add.php" class="btn btn-primary">
+                <i class="fas fa-user-plus"></i> Add New User
+            </a>
+            <!-- Add other quick action links here -->
+        </p>
     </div>
 
 <?php include __DIR__ . '/../layouts/admin_footer.php'; ?>

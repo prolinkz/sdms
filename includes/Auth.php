@@ -78,22 +78,30 @@ class Auth {
         ];
     }
 
-    private function logAccess($user_id) {
+    // In Auth.php, modify the logAccess method
+    // ...
+    // Add new parameters for logging
+    public function logAccess($user_id, $action, $table_name = NULL, $record_id = NULL, $details = NULL) {
         try {
             $stmt = $this->db->prepare("
-                INSERT INTO system_logs (user_id, action, ip_address, user_agent)
-                VALUES (:user_id, 'LOGIN', :ip, :ua)
+                INSERT INTO system_logs (user_id, action, table_name, record_id, ip_address, user_agent, details)
+                VALUES (:user_id, :action, :table_name, :record_id, :ip, :ua, :details)
             ");
             
             $stmt->execute([
                 ':user_id' => $user_id,
+                ':action' => $action,
+                ':table_name' => $table_name,
+                ':record_id' => $record_id,
                 ':ip' => $_SERVER['REMOTE_ADDR'] ?? 'UNKNOWN',
-                ':ua' => $_SERVER['HTTP_USER_AGENT'] ?? 'Unknown'
+                ':ua' => $_SERVER['HTTP_USER_AGENT'] ?? 'Unknown',
+                ':details' => $details
             ]);
         } catch(PDOException $e) {
-            error_log('Logging Error (system_logs table): ' . $e->getMessage());
+            error_log('Logging Error: ' . $e->getMessage());
         }
     }
+    // ...
 
     public function isLoggedIn() {
         // Also checks if BASE_URL is defined, important for redirection
